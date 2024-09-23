@@ -29,6 +29,17 @@ for (const key of keys) {
     });
     let price = await respPrice.toJSON();
     console.log("price", price);
+    pools[key].tokenPrice = price;
+    const response = await fetch(
+      `https://moralis-playground-default-rtdb.europe-west1.firebasedatabase.app/pools/${key}.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(pools[key]),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   } catch (error) {
     //console.log(error);
   }
