@@ -12,8 +12,9 @@ const resPools = await fetch(
 
 const pools = await resPools.json();
 
-Object.keys(pools).map(async (key) => {
-  //console.log(pools[key].metadata[1]);
+const keys = Object.keys(pools);
+
+for (const key of keys) {
   console.log(
     `Symbol: ${pools[key].metadata[1].symbol}, Name: ${pools[key].metadata[1].name}, Address: ${pools[key].metadata[1].address}`
   );
@@ -26,8 +27,9 @@ Object.keys(pools).map(async (key) => {
       include: "percent_change",
       address: pools[key].metadata[1].address,
     });
-    console.log("price", respPrice);
+    let price = await respPrice.toJSON();
+    console.log("price", price);
   } catch (error) {
     //console.log(error);
   }
-});
+}
